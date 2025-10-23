@@ -1,43 +1,46 @@
-function sortear(){
+function sortear() {
     let quantidade = parseInt(document.querySelector('#quantidade').value);
     let de = parseInt(document.querySelector('#de').value);
     let ate = parseInt(document.querySelector('#ate').value);
 
+    if (de > ate) {
+        alert("O número incial deve ser menor do que o número final!");
+        return;
+    } 
 
-    let sorteados = [];
-    for (let i = 0; i < quantidade; i++) {
-         let numero = obterNumeroAleatorio(de, ate);
-        while(sorteados.includes(numero)){
+        let sorteados = [];
+        for (let i = 0; i < quantidade; i++) {
+            let numero = obterNumeroAleatorio(de, ate);
+            while (sorteados.includes(numero)) {
 
-            numero = obterNumeroAleatorio(de, ate);
+                numero = obterNumeroAleatorio(de, ate);
+            }
+            sorteados.push(numero);
+
         }
-        sorteados.push(numero);
-        
+
+        let resultado = document.getElementById('resultado');
+        resultado.innerHTML = `<label class="texto__paragrafo">Números sorteados:  ${sorteados}</label>`;
+        alterarStatusBotao();
     }
-    
-     let resultado = document.getElementById('resultado');
-     resultado.innerHTML = `<label class="texto__paragrafo">Números sorteados:  ${sorteados}</label>`;
-     alterarStatusBotao();
 
-}
-
-function obterNumeroAleatorio(min, max){
+function obterNumeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function alterarStatusBotao(){
+function alterarStatusBotao() {
     let botao = document.getElementById('btn-reiniciar');
-    if(botao.classList.contains('container__botao-desabilitado')){
+    if (botao.classList.contains('container__botao-desabilitado')) {
         botao.classList.remove('container__botao-desabilitado');
         botao.classList.add('container__botao');
-    }else{
+    } else {
         botao.classList.remove('container__botao');
         botao.classList.add('container__botao-desabilitado');
 
     }
 }
 
-function reiniciar(){
+function reiniciar() {
     document.querySelector('#quantidade').value = '';
     document.querySelector('#de').value = '';
     document.querySelector('#ate').value = '';
